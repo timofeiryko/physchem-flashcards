@@ -63,11 +63,12 @@ kbd{
   box-shadow:var(--shadow); padding:18px; margin-top:16px;
 }
 .panel > h2{ font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; }
-.tree-presets{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.tree-presets{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.preset-row{ display:flex; gap:8px; flex-wrap:wrap; }
 .preset{
   border:1px solid var(--line2); background:#f8fafc; color:var(--ink);
-  border-radius:999px; padding:6px 13px; font-size:13px; font-weight:600;
-  transition:all .12s ease;
+  border-radius:999px; padding:6px 14px; font-size:13px; font-weight:600;
+  transition:all .12s ease; display:inline-flex; align-items:center; gap:6px; cursor:pointer;
 }
 .preset:hover{ background:#e2e8f0; }
 .preset.on{ background:var(--ink); border-color:var(--ink); color:#fff; }
@@ -315,8 +316,9 @@ kbd{
   .stat span{ font-size:11px; }
   .panel{ padding:14px 12px; border-radius:14px; }
   .modes{ grid-template-columns:1fr; }
-  .tree-presets{ gap:6px; }
-  .preset{ padding:6px 10px; font-size:12px; }
+  .tree-presets{ gap:7px; }
+  .preset-row{ display:grid; grid-template-columns:1fr 1fr; gap:6px; width:100%; }
+  .preset{ justify-content:center; padding:9px 6px; font-size:12px; border-radius:10px; width:100%; text-align:center; }
   .qcard{ padding:16px 14px 18px; border-radius:14px; margin-top:12px; }
   .qmeta{ gap:6px; margin-bottom:10px; }
   .qsec{ max-width:55%; font-size:11.5px; }
@@ -484,10 +486,14 @@ function menuHTML(){
     <div class="panel">
       <h2>Колода вопросов</h2>
       <div class="tree-presets">
-        <button class="preset${selAll?' on':''}" data-act="all">Все вопросы (${CARDS.length})</button>
-        <button class="preset${selNone?' on':''}" data-act="invert">Снять выбор</button>
-        <button class="preset" data-act="expand-all">Развернуть всё</button>
-        <button class="preset" data-act="collapse-all">Свернуть всё</button>
+        <div class="preset-row">
+          <button class="preset${selAll?' on':''}" data-act="all">✅ Все вопросы (${CARDS.length})</button>
+          <button class="preset${selNone?' on':''}" data-act="invert">❌ Снять выбор</button>
+        </div>
+        <div class="preset-row">
+          <button class="preset" data-act="expand-all">📂 Развернуть всё</button>
+          <button class="preset" data-act="collapse-all">📁 Свернуть всё</button>
+        </div>
       </div>
       <div class="deck-info">
         <span>Выбрано тем: <b>${SEL.size} из ${ALL_SEC.length}</b></span>
